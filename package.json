@@ -14,6 +14,7 @@
       "Historian-PGConfig": "historian-pg-config.js",
       "Historian-PGClient": "historian-pg-client.js",
       "Historian-SingleInsert": "historian-single-insert.js",
+      "Historian-Timer": "historian-timer.js",
       "Historian-BatchInsert": "historian-batch-insert.js"
     }
   },

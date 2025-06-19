@@ -1,0 +1,30 @@
+<script type="text/html" data-template-name="historian-timer">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-interval"><i class="fa fa-clock-o"></i> Interval (ms)</label>
+        <input type="number" id="node-input-interval" min="1" value="1000">
+    </div>
+    <div class="form-tips">
+        <b>Anti-drift trigger:</b> Output message <b>exactly every N ms</b>, using anchor timestamp.<br>
+        <small>Output: <code>msg.timestamp</code> is <b>precisely scheduled</b>.<br>
+            Much more accurate than Node-RED Inject for long run!</small>
+    </div>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('historian-timer', {
+        category: 'function',
+        color: '#c6e1ec',
+        defaults: {
+            name: { value: "" },
+            interval: { value: 1000, required: true }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "fa fa-clock-o",
+        label: function() { return this.name || "Historian Timer (anti drift)"; }
+    });
+</script>
