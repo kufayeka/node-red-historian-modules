@@ -7,9 +7,47 @@
         <label for="node-input-pgConfig"><i class="fa fa-cog"></i> PG Config</label>
         <input type="text" id="node-input-pgConfig">
     </div>
+    <div class="flex-checkbox-row">
+        <input type="checkbox" id="node-input-enableQueue">
+        <label for="node-input-enableQueue">
+            <i class="fa fa-tasks"></i> Enable Query Queue
+        </label>
+    </div>
+    <div class="flex-checkbox-row">
+        <input type="checkbox" id="node-input-enablePersistence">
+        <label for="node-input-enablePersistence">
+            <i class="fa fa-file-text"></i> Enable Persistence (write to file)
+        </label>
+    </div>
+    <div class="flex-checkbox-row">
+        <input type="checkbox" id="node-input-enableRetryOnFail">
+        <label for="node-input-enableRetryOnFail">
+            <i class="fa fa-refresh"></i> Enable Retry on Fail
+        </label>
+    </div>
+
     <div class="form-row">
         <label for="node-input-delayMs">Execution Delay (ms)</label>
         <input type="number" id="node-input-delayMs" value="0">
+    </div>
+    <div class="form-row">
+        <label for="node-input-retryCount">
+            <i class="fa fa-repeat"></i> Retry Count (0 = infinite)
+        </label>
+        <input type="number" id="node-input-retryCount" value="3" min="0">
+    </div>
+    <div class="form-row">
+        <label for="node-input-queueBackoffOrder">
+            <i class="fa fa-sign-in"></i> Queue Backoff Order (position on retry)
+        </label>
+        <input type="number" id="node-input-queueBackoffOrder" value="0" min="0">
+        <span style="font-size:90%">0 = front, queue.length = end</span>
+    </div>
+    <div class="form-row">
+        <label for="node-input-persistInterval">
+            <i class="fa fa-clock-o"></i> Persist Interval (s)
+        </label>
+        <input type="number" id="node-input-persistInterval" value="30" min="1">
     </div>
     <div class="form-tips">
         <b>How to use:</b>
@@ -21,6 +59,26 @@
     <div class="form-tips">
         Output: <code>msg.payload</code> berisi <i>rows</i> hasil query. <code>msg.result</code> berisi full response PG.
     </div>
+
+    <style>
+        /* Flex row untuk checkbox + label */
+        .flex-checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            margin-bottom: 6px;
+        }
+
+        .flex-checkbox-row label {
+            margin-bottom: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        .flex-checkbox-row input[type="checkbox"] {
+            margin: 0;
+        }
+    </style>
+
 </script>
 
 <script type="text/html" data-help-name="historian-pg-client">
@@ -35,7 +93,13 @@
         defaults: {
             name: { value: "" },
             delayMs: { value: "0", required: true },
-            pgConfig: { value: "", type: "historian-pg-config", required: true }
+            pgConfig: { value: "", type: "historian-pg-config", required: true },
+            enableQueue: { value: false },
+            enablePersistence: { value: false },
+            enableRetryOnFail: { value: false },
+            retryCount: { value: 3 },
+            queueBackoffOrder: { value: 0 },
+            persistInterval: { value: 30 }
         },
         inputs: 1,
         outputs: 1,
