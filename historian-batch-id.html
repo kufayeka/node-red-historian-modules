@@ -1,0 +1,29 @@
+<script type="text/html" data-template-name="historian-batch-id">
+    <div class="form-row">
+        <label for="node-input-name">Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+<!--    <div class="form-row">-->
+<!--        <label for="node-input-batch_id">Batch ID (override)</label>-->
+<!--        <input type="text" id="node-input-batch_id" placeholder="Static batch id (opsional)">-->
+<!--    </div>-->
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('historian-batch-id', {
+        category: 'function',
+        color: '#a6bbcf',
+        defaults: {
+            name: { value: "" },
+            batch_id: { value: "" },
+        },
+        inputs:1,
+        outputs:1,
+        icon: "font-awesome/fa-list",
+        label: function() { return this.name||"Historian - Batch ID"; }
+    });
+</script>
+
+<script type="text/html" data-help-name="historian-batch-id">
+    <p>historian batch id</p>
+</script>

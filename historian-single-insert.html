@@ -1,0 +1,45 @@
+<script type="text/html" data-template-name="historian-single-insert">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-tsProperty"><i class="fa fa-clock-o"></i> Timestamp Property</label>
+        <input type="text" id="node-input-tsProperty">
+        <input type="hidden" id="node-input-tsPropertyType">
+    </div>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('historian-single-insert', {
+        category: 'function',
+        color: '#a6bbcf',
+        defaults: {
+            name: { value: "" },
+            tsProperty: { value: "payload.metadata.last_update" },
+            tsPropertyType: { value: "msg" },
+        },
+        inputs:1,
+        outputs:1,
+        icon: "font-awesome/fa-list",
+        label: function() { return this.name||"Historian - Single Insert"; },
+        oneditprepare: function () {
+            $('#node-input-tsProperty').typedInput({
+                default: 'msg',
+                typeField: $('#node-input-tsPropertyType'),
+                types: ['msg', 'flow', 'global']
+            });
+        }
+    });
+</script>
+
+<script type="text/html" data-help-name="historian-single-insert">
+    <p>Insert 1 baris ke <b>uns_historian</b> tiap ada msg masuk.</p>
+    <ul>
+        <li><b>ts</b> → override timestamp (msg/flow/global)</li>
+        <li><b>value</b> → msg.payload.value</li>
+        <li><b>status</b> → msg.payload.metadata.status</li>
+        <li><b>uns</b> → msg.payload.metadata.uns</li>
+    </ul>
+    <p>Menghasilkan query SQL insert di <code>msg.query</code></p>
+</script>

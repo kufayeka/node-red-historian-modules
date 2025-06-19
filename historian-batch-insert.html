@@ -1,0 +1,65 @@
+<script type="text/html" data-template-name="historian-batch-insert">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-batchSize"><i class="fa fa-list-ol"></i> Batch size</label>
+        <input type="number" id="node-input-batchSize" min="1" value="10">
+    </div>
+    <div class="form-row">
+        <label for="node-input-tsProperty"><i class="fa fa-clock-o"></i> Timestamp Property</label>
+        <input type="text" id="node-input-tsProperty">
+        <input type="hidden" id="node-input-tsPropertyType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-overrideBatchTs">
+            <i class="fa fa-clock-o"></i> Set timestamp when the batch is complete
+        </label>
+        <input type="checkbox" id="node-input-overrideBatchTs">
+    </div>
+    <div class="form-row">
+        <label for="node-input-batchInterval">
+            <i class="fa fa-clock-o"></i> Batch Interval (ms)
+        </label>
+        <input type="number" id="node-input-batchInterval" min="1" value="1000">
+    </div>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('historian-batch-insert', {
+        category: 'function',
+        color: '#a6bbcf',
+        defaults: {
+            name: { value: "" },
+            batchSize: { value: 1, required: true },
+            tsProperty: { value: "payload.metadata.last_update" },
+            tsPropertyType: { value: "msg" },
+            overrideBatchTs: { value: false },
+            batchInterval: { value: 1000 },
+        },
+        inputs:1,
+        outputs:1,
+        icon: "font-awesome/fa-list",
+        label: function() { return this.name||"Historian - Batch Insert"; },
+        oneditprepare: function () {
+            $('#node-input-tsProperty').typedInput({
+                default: 'msg',
+                typeField: $('#node-input-tsPropertyType'),
+                types: ['msg', 'flow', 'global']
+            });
+        }
+
+    });
+</script>
+
+<script type="text/html" data-help-name="historian-batch-insert">
+    <p>Batching and generates SQL insert query for table <b>historian_signals</b>.</p>
+    <ul>
+        <li><b>ts</b> → msg.payload.value</li>
+        <li><b>value</b> → msg.payload.value</li>
+        <li><b>status</b> → msg.payload.metadata.status</li>
+        <li><b>signal_id</b> → ISO string dari msg.payload.metadata.last_update</li>
+    </ul>
+    <p>After <b>batch size</b> filled, a SQL batch insert is generated to <code>msg.payload.query</code></p>
+</script>

@@ -1,0 +1,24 @@
+{
+  "name": "kufayeka-historian-modules",
+  "version": "0.1.0",
+  "author": "kufayeka",
+  "license": "ISC",
+  "description": "Historian Modules for Node-RED ",
+  "keywords": [
+    "node-red",
+    "node-red-node"
+  ],
+  "node-red": {
+    "nodes": {
+      "Historian-BatchID": "historian-batch-id.js",
+      "Historian-PGConfig": "historian-pg-config.js",
+      "Historian-PGClient": "historian-pg-client.js",
+      "Historian-SingleInsert": "historian-single-insert.js",
+      "Historian-BatchInsert": "historian-batch-insert.js"
+    }
+  },
+  "dependencies": {
+    "pg": "^8.16.0",
+    "queue": "^7.0.0"
+  }
+}

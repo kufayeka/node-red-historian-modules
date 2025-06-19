@@ -1,0 +1,69 @@
+<script type="text/html" data-template-name="historian-pg-config">
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-config-input-name" placeholder="Config Name">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-host"><i class="fa fa-server"></i> Host</label>
+        <input type="text" id="node-config-input-host" placeholder="e.g. localhost">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-port"><i class="fa fa-plug"></i> Port</label>
+        <input type="number" id="node-config-input-port" placeholder="5432" min="1" max="65535">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-database"><i class="fa fa-database"></i> Database</label>
+        <input type="text" id="node-config-input-database" placeholder="Database name">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-user"><i class="fa fa-user"></i> User</label>
+        <input type="text" id="node-config-input-user" placeholder="DB username">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-password"><i class="fa fa-lock"></i> Password</label>
+        <input type="password" id="node-config-input-password" placeholder="DB password">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-min"><i class="fa fa-database"></i> Min Pool Client</label>
+        <input type="number" id="node-config-input-min" placeholder="0" min="0" max="100">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-max"><i class="fa fa-database"></i> Max Pool Client</label>
+        <input type="number" id="node-config-input-max" placeholder="10" min="1" max="100">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-idleTimeoutMillis"><i class="fa fa-database"></i> Idle Timeout (ms)</label>
+        <input type="number" id="node-config-input-idleTimeoutMillis" placeholder="30000" min="0" max="100000">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-connectionTimeoutMillis"><i class="fa fa-database"></i> Connection Timeout (ms)</label>
+        <input type="number" id="node-config-input-connectionTimeoutMillis" placeholder="10000" min="0" max="100000">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="historian-pg-config">
+    <p>historian-pg-config</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('historian-pg-config', {
+        category: 'config',
+        defaults: {
+            name: { value: "" },
+            host: { value: "", required: true },
+            port: { value: 5432, required: true },
+            database: { value: "", required: true },
+            user: { value: "", required: true },
+            min: { value: 0, required: true },
+            max: { value: 10, required: true },
+            idleTimeoutMillis: { value: 30000, required: true },
+            connectionTimeoutMillis: { value: 10000, required: true },
+        },
+        credentials: {
+            password: { type: "password" }
+        },
+        label: function() {
+            return this.name || "historian-pg-config";
+        }
+    });
+</script>
